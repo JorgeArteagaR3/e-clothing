@@ -1,18 +1,18 @@
 import { getServerSession } from "next-auth/next";
-import { authOptions } from "./api/auth/[...nextauth]/route";
+import { redirect } from "next/navigation";
+import { authOptions } from "../api/auth/[...nextauth]/route";
 import Navbar from "@/components/Navbar";
 import PageWithNavbar from "@/components/UI/PageWithNavbar";
 
-export default async function Home() {
+export default async function DashboardPage() {
     const session = await getServerSession(authOptions);
+
     if (!session) {
-        console.log("NO HAY SESSION");
-    } else {
-        console.log(session);
+        redirect("/login");
     }
     return (
         <PageWithNavbar>
-            <main>{JSON.stringify(session)}</main>
+            <main>Dashboard Page</main>
         </PageWithNavbar>
     );
 }
